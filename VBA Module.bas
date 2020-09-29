@@ -2,8 +2,8 @@ Attribute VB_Name = "Module1"
 
 
 Sub StockTicker():
-
-Dim Ws As Worksheet
+    'Declare worksheet
+    Dim Ws As Worksheet
     
     'Declare variables
     Dim tickercode As String
@@ -59,7 +59,8 @@ Dim Ws As Worksheet
                     percentchange = (yearlychange / openprice)
                 End If
                 Ws.Cells(summaryrow, 11).Value = percentchange
-                
+                Ws.Cells(summaryrow, 11).Style = "Percent"
+                Ws.Cells(summaryrow, 11).NumberFormat = "0.0000%"
                 'Formatting of percent change
                 'Ws.Range("K2:K71266").Value = CStr(percentchange) & "%"
                 
@@ -92,3 +93,4 @@ Dim Ws As Worksheet
    Next Ws
    
 End Sub
+
