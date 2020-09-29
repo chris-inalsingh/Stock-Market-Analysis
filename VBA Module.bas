@@ -1,10 +1,9 @@
 Attribute VB_Name = "Module1"
 
 
-
 Sub StockTicker():
 
-
+Dim Ws As Worksheet
     
     'Declare variables
     Dim tickercode As String
@@ -14,13 +13,16 @@ Sub StockTicker():
     Dim stockvolumetotal As LongLong
     Dim closeprice As Double
     Dim openprice As Double
-    Dim Ws As Worksheet
+    
+    
+    'Create For loop for worksheets
+    For Each Ws In Worksheets
     
     'Summary Headers
-    Cells(1, 9).Value = "Ticker"
-    Cells(1, 10).Value = "Yearly change"
-    Cells(1, 11).Value = "Percent change"
-    Cells(1, 12).Value = "Total stock volume"
+    Ws.Cells(1, 9).Value = "Ticker"
+    Ws.Cells(1, 10).Value = "Yearly change"
+    Ws.Cells(1, 11).Value = "Percent change"
+    Ws.Cells(1, 12).Value = "Total stock volume"
     
     
     
@@ -28,12 +30,11 @@ Sub StockTicker():
     summaryrow = 2
     stockvolumetotal = 0
     closeprice = 0
-    openprice = Cells(2, 3).Value
+    openprice = Ws.Cells(2, 3).Value
     yearlychange = 0
-    LastRow = Cells(Rows.Count, 1).End(xlUp).Row
+    LastRow = Ws.Cells(Rows.Count, 1).End(xlUp).Row
     
-    'Create For loop for worksheets
-    For Each Ws In Worksheets
+    
     
     'Create For Loop
     For i = 2 To LastRow
@@ -60,7 +61,7 @@ Sub StockTicker():
                 Ws.Cells(summaryrow, 11).Value = percentchange
                 
                 'Formatting of percent change
-                Ws.Range("K2:K71266").Value = CStr(percentchange) & "Percent"
+                'Ws.Range("K2:K71266").Value = CStr(percentchange) & "%"
                 
                 'Selection.NumberFormat = "0.00%"
                 
