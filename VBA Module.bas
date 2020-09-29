@@ -1,8 +1,11 @@
 Attribute VB_Name = "Module1"
 
 
+
 Sub StockTicker():
 
+
+    
     'Declare variables
     Dim tickercode As String
     Dim summaryrow As Integer
@@ -11,6 +14,7 @@ Sub StockTicker():
     Dim stockvolumetotal As LongLong
     Dim closeprice As Double
     Dim openprice As Double
+    Dim Ws As Worksheet
     
     'Summary Headers
     Cells(1, 9).Value = "Ticker"
@@ -24,48 +28,66 @@ Sub StockTicker():
     summaryrow = 2
     stockvolumetotal = 0
     closeprice = 0
-    openprice = 0
+    openprice = Cells(2, 3).Value
     yearlychange = 0
+    LastRow = Cells(Rows.Count, 1).End(xlUp).Row
     
-    
+    'Create For loop for worksheets
+    For Each Ws In Worksheets
     
     'Create For Loop
-    For i = 2 To 71266
+    For i = 2 To LastRow
         
         'Start Conditional
-         If Cells(i + 1, 1).Value <> Cells(i, 1).Value Then
-                tickercode = Cells(i, 1).Value
-                stockvolumetotal = stockvolumetotal + Cells(i, 7).Value
+         If Ws.Cells(i + 1, 1).Value <> Ws.Cells(i, 1).Value Then
+                tickercode = Ws.Cells(i, 1).Value
+                stockvolumetotal = stockvolumetotal + Ws.Cells(i, 7).Value
                         
                  'Input Ticker code and stockvolume total into Summary table
-                Cells(summaryrow, 9).Value = tickercode
-                Cells(summaryrow, 12).Value = stockvolumetotal
-                summaryrow = summaryrow + 1
-                stockvolumetotal = 0
-                
-                closeprice = Cells(i, 6).Value
+                Ws.Cells(summaryrow, 9).Value = tickercode
+                Ws.Cells(summaryrow, 12).Value = stockvolumetotal
+               
+                'Yearlychange input
+                closeprice = Ws.Cells(i, 6).Value
                 yearlychange = closeprice - openprice
-
+                Ws.Cells(summaryrow, 10).Value = yearlychange
+                
+                
                 'Nested conditional for percent change
                 If openprice <> 0 Then
-                    percentchange = (yearlychange / openprice) * 100
+                    percentchange = (yearlychange / openprice)
+                End If
+                Ws.Cells(summaryrow, 11).Value = percentchange
+                
+                'Formatting of percent change
+                Ws.Range("K2:K71266").Value = CStr(percentchange) & "Percent"
+                
+                'Selection.NumberFormat = "0.00%"
+                
+                'Formatting of yearly changes
+                If (yearlychange > 0) Then
+                    Ws.Cells(summaryrow, 10).Interior.ColorIndex = 4
+                Else
+                    Ws.Cells(summaryrow, 10).Interior.ColorIndex = 3
                 End If
                 
+                'Reset values for next ticker code
+                openprice = Ws.Cells(i + 1, 3).Value
+                closeprice = 0
+                yearlychange = 0
+                summaryrow = summaryrow + 1
+                stockvolumetotal = 0
         Else
         
-        stockvolumetotal = stockvolumetotal + Cells(i, 7).Value
-               
+                'stockvolumetotal sum amounts
+                stockvolumetotal = stockvolumetotal + Cells(i, 7).Value
+                   
                 
         End If
         
-        
     
-        Next i
+     Next i
                 
-End Sub
-
-        
-    
-        Next i
-                
+   Next Ws
+   
 End Sub
