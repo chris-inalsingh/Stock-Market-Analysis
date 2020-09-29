@@ -58,13 +58,12 @@ Sub StockTicker():
                 If openprice <> 0 Then
                     percentchange = (yearlychange / openprice)
                 End If
+                
+                'Assigned value to table and formatting percent change
                 Ws.Cells(summaryrow, 11).Value = percentchange
                 Ws.Cells(summaryrow, 11).Style = "Percent"
                 Ws.Cells(summaryrow, 11).NumberFormat = "0.0000%"
-                'Formatting of percent change
-                'Ws.Range("K2:K71266").Value = CStr(percentchange) & "%"
                 
-                'Selection.NumberFormat = "0.00%"
                 
                 'Formatting of yearly changes
                 If (yearlychange > 0) Then
@@ -93,4 +92,5 @@ Sub StockTicker():
    Next Ws
    
 End Sub
+
 
