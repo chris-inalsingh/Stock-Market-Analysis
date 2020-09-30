@@ -1,5 +1,5 @@
 # VBA-Challenge
-The VBA Module displays the yearly change over a year, percent change over a year, and total stock volume for each ticker symbol in the given year. 
+The VBA Module displays the yearly change over a year, percent change over a year, and total stock volume for each ticker symbol in the given year.  
 Yearly change column is conditionally formatted to be green when positive and red when negative.   
 The module will also go through all worksheets for each year 
 
