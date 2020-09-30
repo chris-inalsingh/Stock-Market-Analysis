@@ -81,7 +81,7 @@ Sub StockTicker():
         Else
         
                 'stockvolumetotal sum amounts
-                stockvolumetotal = stockvolumetotal + Cells(i, 7).Value
+                stockvolumetotal = stockvolumetotal + Ws.Cells(i, 7).Value
                    
                 
         End If
