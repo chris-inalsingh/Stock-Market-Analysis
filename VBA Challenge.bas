@@ -1,9 +1,7 @@
+
 Sub Challenge():
 'Declare worksheet
-    Dim Ws As Worksheets
-    
-    'Loop worksheet
-    For Each Ws In Worksheets
+    Dim Ws As Worksheet
     
     'Variables
     Dim percentchange As Double
@@ -11,6 +9,9 @@ Sub Challenge():
     Dim greatestdecrease As Double
     Dim greatestvolume As LongLong
     Dim tickersymbol As String
+    
+     'Loop worksheet
+    For Each Ws In Worksheets
     
     Ws.Cells(1, 16).Value = "Ticker"
     Ws.Cells(1, 17).Value = "Value"
@@ -20,6 +21,9 @@ Sub Challenge():
     
     'Assign variables to inital values
     greatestincrease = Ws.Cells(2, 11)
+    greatestdecrease = Ws.Cells(2, 11)
+    greatestvolume = Ws.Cells(2, 12)
+    
     
     'Add variable for last row
     Lastrow = Ws.Cells(Rows.Count, 1).End(xlUp).Row
